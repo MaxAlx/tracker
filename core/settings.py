@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
-    'serv_auth',
+    'service_auth',
     'events',
     'notes',
     'schedules',
@@ -91,7 +91,7 @@ JWT_AUTH = {
 
 REST_USE_JWT = True
 
-AUTH_USER_MODEL = 'serv_auth.CustomUser'
+AUTH_USER_MODEL = 'service_auth.CustomUser'
 
 ROOT_URLCONF = 'core.urls'
 

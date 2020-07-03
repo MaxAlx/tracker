@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Event(models.Model):
-    user = models.ForeignKey('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey('service_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     datetime = models.DateTimeField(verbose_name='Дата и время события')
     tags = models.ManyToManyField('events.EventTag', blank=True, verbose_name='Теги')

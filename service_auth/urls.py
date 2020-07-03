@@ -1,5 +1,5 @@
 from django.urls import path, include
-from serv_auth.views import GoogleLogin
+from service_auth.views import GoogleLogin
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),

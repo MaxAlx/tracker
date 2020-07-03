@@ -3,7 +3,7 @@ from django.db import models
 
 class UsersSchedule(models.Model):
     """ Расписание на неделю """
-    user = models.OneToOneField('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.OneToOneField('service_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
     monday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
                                related_name='scheduleAsMonday', verbose_name='Понедельник')
     tuesday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
@@ -31,7 +31,7 @@ class UsersSchedule(models.Model):
 class Schedule(models.Model):
     """ Расписание дня """
     title = models.CharField(max_length=50, verbose_name='Название расписания')
-    user = models.ForeignKey('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey('service_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
     tasks = models.ManyToManyField('schedules.Task', blank=True, related_name='weekendsAsTask', verbose_name='Задачи')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -46,7 +46,7 @@ class Schedule(models.Model):
 
 class Task(models.Model):
     """ Задача в течение дня """
-    user = models.ForeignKey('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey('service_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     datetime = models.TimeField(verbose_name='Время события')
     description = models.TextField(max_length=150, verbose_name='Описание')

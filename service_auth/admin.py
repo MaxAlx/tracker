@@ -1,5 +1,5 @@
 from django.contrib import admin
-from serv_auth.models import CustomUser
+from service_auth.models import CustomUser
 from django.contrib.auth.admin import UserAdmin
 
 

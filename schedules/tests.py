@@ -1,5 +1,5 @@
 from django.test import TestCase
-from serv_auth.models import CustomUser
+from service_auth.models import CustomUser
 
 
 class SchedulesTestCase(TestCase):
