@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'serv_auth',
+    # 'tasks',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,8 @@ JWT_AUTH = {
 }
 
 REST_USE_JWT = True
+
+AUTH_USER_MODEL = 'serv_auth.CustomUser'
 
 ROOT_URLCONF = 'core.urls'
 
