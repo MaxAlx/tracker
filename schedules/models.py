@@ -1,10 +1,37 @@
 from django.db import models
 
 
-class Schedule(models.Model):
-    """ Модель расписания дня """
+class UsersSchedule(models.Model):
+    """ Расписание на неделю """
     user = models.OneToOneField('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
-    days = models.ManyToManyField('schedules.WeekDay', blank=True, related_name='weekdaysAsDays', verbose_name='Дни')
+    monday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                               related_name='scheduleAsMonday', verbose_name='Понедельник')
+    tuesday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                                related_name='scheduleAsTuesday', verbose_name='Вторник')
+    wednesday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                                  related_name='scheduleAsWednesday', verbose_name='Среда')
+    thursday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                                 related_name='scheduleAsThursday', verbose_name='Четверг')
+    friday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                               related_name='scheduleAsFriday', verbose_name='Пятница')
+    saturday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                                 related_name='scheduleAsSaturday', verbose_name='Суббота')
+    sunday = models.ForeignKey('schedules.Schedule', on_delete=models.SET_NULL, blank=True, null=True,
+                               related_name='scheduleAsSunday', verbose_name='Воскресение')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Расписание на неделю'
+        verbose_name_plural = 'Расписания на неделю'
+
+
+
+class Schedule(models.Model):
+    """ Расписание дня """
+    title = models.CharField(max_length=50, verbose_name='Название расписания')
+    user = models.ForeignKey('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
     tasks = models.ManyToManyField('schedules.Task', blank=True, related_name='weekendsAsTask', verbose_name='Задачи')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -18,7 +45,7 @@ class Schedule(models.Model):
 
 
 class Task(models.Model):
-    """ Задачи в течение дня """
+    """ Задача в течение дня """
     user = models.ForeignKey('serv_auth.CustomUser', on_delete=models.CASCADE, verbose_name='Пользователь')
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     datetime = models.TimeField(verbose_name='Время события')
@@ -30,23 +57,3 @@ class Task(models.Model):
     class Meta:
         verbose_name = 'Задача'
         verbose_name_plural = 'Задачи'
-
-
-class WeekDay(models.Model):
-    """ Дни недели """
-    name = models.CharField(max_length=10, verbose_name='Название')
-    NAMES_CHOICES = (
-        (0, 'пн'),
-        (1, 'вт'),
-        (2, 'ср'),
-        (3, 'чт'),
-        (4, 'пт'),
-        (5, 'сб'),
-        (6, 'вс')
-    )
-    short_name = models.IntegerField(choices=NAMES_CHOICES, verbose_name='Краткие названия')
-    number = models.IntegerField(verbose_name='Номер дня недели')
-
-    class Meta:
-        verbose_name = 'День недели'
-        verbose_name_plural = 'Дни недели'
