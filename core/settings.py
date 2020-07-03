@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'serv_auth',
     'events',
+    'notes',
 ]
 
 MIDDLEWARE = [
