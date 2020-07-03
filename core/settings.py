@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'serv_auth',
-    # 'tasks',
+    'events',
 ]
 
 MIDDLEWARE = [
