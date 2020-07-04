@@ -1,30 +1,38 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
-from schedules.models import Task
-from schedules.serializers import TaskSerializer
+from schedules.models import Task, DaySchedule
+from schedules.serializers import TaskSerializer, DayScheduleSerializer, DayScheduleReadSerializer
+
+from schedules.services.custom_views import CustomListCreateAPIView, CustomRetrieveUpdateDestroyAPIView
 
 
-class TaskListCreateAPIView(ListCreateAPIView):
-    """ Создание новых задач (POST) и получение списка задач (GET) / информации по заполнению (OPTIONS) """
+class TaskListCreateAPIView(CustomListCreateAPIView):
+    """ Создание новых задач (POST) и получение списка задач (GET) """
+    model = Task
     permission_classes = [IsAuthenticated]
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
 
-    def get_queryset(self):
-        """ Список задач авторизованного пользователя """
-        return Task.objects.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        """ Заполняем поле user текущим пользователем """
-        serializer.save(user=self.request.user)
-
-
-class TaskRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+class TaskRetrieveUpdateDestroyAPIView(CustomRetrieveUpdateDestroyAPIView):
     """ Получение информации о задаче, редактирование и удаление """
     permission_classes = [IsAuthenticated]
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
 
-    def get_queryset(self):
-        """ Только вледелец задачи сможет ее получить """
-        return super(TaskRetrieveUpdateDestroyAPIView, self).get_queryset().filter(user=self.request.user)
+
+class DayScheduleListCreateAPIView(CustomListCreateAPIView):
+    """ Создание расписаний на день (POST) и получение списка (GET) """
+    model = DaySchedule
+    permission_classes = [IsAuthenticated]
+    serializer_class = DayScheduleSerializer
+    queryset = DaySchedule.objects.all()
+
+
+class DayScheduleRetrieveUpdateDestroyAPIView(CustomRetrieveUpdateDestroyAPIView):
+    """ Получение информации о расписании на день, редактирование и удаление """
+    permission_classes = [IsAuthenticated]
+    serializer_class = DayScheduleSerializer
+    read_serializer_class = DayScheduleReadSerializer
+    queryset = DaySchedule.objects.all()
+
+
