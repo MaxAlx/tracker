@@ -25,5 +25,5 @@ class CustomRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         return self.serializer_class
 
     def get_queryset(self):
-        """ Только вледелец задачи сможет ее получить """
+        """ Только вледелец сущности сможет ее получить """
         return super(CustomRetrieveUpdateDestroyAPIView, self).get_queryset().filter(user=self.request.user)

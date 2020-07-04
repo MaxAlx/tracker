@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from schedules.models import Task, DaySchedule
+from schedules.models import Task, DaySchedule, Schedule
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -22,3 +22,9 @@ class DayScheduleReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = DaySchedule
         exclude = ['user']
+
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
