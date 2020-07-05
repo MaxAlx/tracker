@@ -1,4 +1,4 @@
-![Screenshot](Banner.png)
+![Banner](https://github.com/MaxAlx/tracker/blob/master/Banner.jpg)
 
 # Tracker
 
@@ -207,7 +207,7 @@ GET /api/v1/playlist/
 ```http request
 PUT /api/v1/playlist/
 {
-"link": "<iframe width="560" height="315" src="https://www.youtube.com/embed/UOUBW8bkjQ4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>"
+    "link": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/UOUBW8bkjQ4\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
 }
 ```
 
