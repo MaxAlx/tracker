@@ -5,7 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 class PersonalizedListCreateAPIView(ListCreateAPIView):
     """
     Персонализированный ListCreateAPIView.
-    По дефолту поля `user` заполняюся авторизованным пользователем
+    По дефолту поля `user` заполняюся авторизованным пользователем.
+    Обязательный параметр - model
     """
     permission_classes = [IsAuthenticated]
     model = None
