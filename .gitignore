@@ -2,6 +2,7 @@ env
 venv
 node_modules
 static
+.env
 .idea
 .vscode
 **/.DS_Store
