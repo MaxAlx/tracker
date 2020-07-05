@@ -1,4 +1,4 @@
-![Screenshot](Banner.png)
+![Banner](https://github.com/MaxAlx/tracker/blob/master/Banner.jpg)
 
 # Tracker
 
