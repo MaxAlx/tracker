@@ -13,9 +13,17 @@ class CustomScheduleAPIView(RetrieveUpdateAPIView):
     c проверкой на принадлежность расписаний авторизованному пользователю
     """
     permission_classes = [IsAuthenticated]
+    read_serializer_class = None
 
     def get_object(self):
         return self.request.user.schedule
+
+    def get_serializer_class(self, *args, **kwargs):
+        """ Если требуется, для GET-запосов используем другой serializer """
+        if self.read_serializer_class and self.request.method == 'GET':
+            return self.read_serializer_class
+
+        return self.serializer_class
 
     def perform_update(self, serializer):
         if not self.is_day_schedules_owned_by_user(serializer.validated_data):

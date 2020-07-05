@@ -34,6 +34,7 @@ class DayScheduleRetrieveUpdateDestroyAPIView(PersonalizedRetrieveUpdateDestroyA
 class ScheduleRetrieveUpdateAPIView(CustomScheduleAPIView):
     """ Получение информации о расписании на неделю, редактирование и удаление """
     serializer_class = serializers.ScheduleSerializer
+    read_serializer_class=serializers.ScheduleReadSerializer
     queryset = Schedule.objects.all()
 
 
