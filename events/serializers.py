@@ -5,7 +5,7 @@ from events.models import Event, EventTag
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = '__all__'
+        exclude = ['user']
 
 
 class EventTagSerializer(serializers.ModelSerializer):
