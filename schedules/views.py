@@ -1,8 +1,5 @@
-from schedules.services.custom_views import CustomListCreateAPIView, CustomRetrieveUpdateDestroyAPIView
-from schedules.services.schedule_logic import is_day_schedules_owned_by_user
-from rest_framework.generics import RetrieveUpdateAPIView
+from schedules.services.custom_views import CustomListCreateAPIView, CustomRetrieveUpdateDestroyAPIView, CustomScheduleAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import NotAcceptable
 from schedules.models import Task, DaySchedule, Schedule
 from schedules import serializers
 
@@ -38,16 +35,8 @@ class DayScheduleRetrieveUpdateDestroyAPIView(CustomRetrieveUpdateDestroyAPIView
     queryset = DaySchedule.objects.all()
 
 
-class ScheduleRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+class ScheduleRetrieveUpdateAPIView(CustomScheduleAPIView):
     """ Получение информации о расписании на неделю, редактирование и удаление """
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.ScheduleSerializer
     queryset = Schedule.objects.all()
-
-    def get_object(self):
-        return self.request.user.schedule
-
-    def perform_update(self, serializer):
-        if not is_day_schedules_owned_by_user(self.request.user, serializer.validated_data):
-            raise NotAcceptable
-        serializer.save()
