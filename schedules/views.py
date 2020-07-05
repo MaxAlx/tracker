@@ -1,5 +1,5 @@
 from schedules.services.custom_views import CustomScheduleAPIView, CustomScheduleResetAPIView
-from custom_views.views import PersonalizedListCreateAPIView, PersonalizedRetrieveUpdateDestroyAPIView
+from customizations.views import PersonalizedListCreateAPIView, PersonalizedRetrieveUpdateDestroyAPIView
 from schedules.models import Task, DaySchedule, Schedule
 from schedules import serializers
 

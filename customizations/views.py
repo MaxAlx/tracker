@@ -1,4 +1,4 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -47,3 +47,14 @@ class PersonalizedRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         """ Только вледелец сущности сможет ее получить """
         return super(PersonalizedRetrieveUpdateDestroyAPIView, self).get_queryset().filter(user=self.request.user)
+
+
+class ListByDateAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    model = None
+
+    def get_queryset(self):
+        if self.model and self.kwargs.get('date'):
+            return self.model.objects.filter(user=self.request.user, date=self.kwargs.get('date'))
+        else:
+            return super(ListByDateAPIView, self).get_queryset()
