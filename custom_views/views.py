@@ -10,6 +10,14 @@ class PersonalizedListCreateAPIView(ListCreateAPIView):
     """
     permission_classes = [IsAuthenticated]
     model = None
+    read_serializer_class = None
+
+    def get_serializer_class(self, *args, **kwargs):
+        """ Если требуется, для GET-запосов используем другой serializer """
+        if self.read_serializer_class and self.request.method == 'GET':
+            return self.read_serializer_class
+
+        return self.serializer_class
 
     def get_queryset(self):
         """ Список сущностей только авторизованного пользователя """
